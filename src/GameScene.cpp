@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Jinyoung Maeng
+ * Copyright 2019 Ademosie
  *
  * This file is part of Venusblast.
  *
@@ -17,7 +17,7 @@
  * along with Venusblast.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * Author:
- *     Jinyoung Maeng <adenosiez@gmail.com>
+ *     Adenosie <adenosiez@gmail.com>
  */
 
 #include "GameScene.hpp"

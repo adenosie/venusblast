@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Jinyoung Maeng
+ * Copyright 2019 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -17,7 +17,7 @@
  * along with Venusblast.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * Author:
- *     Jinyoung Maeng <adenosiez@gmail.com>
+ *     Adenosie <adenosiez@gmail.com>
  */
 
 #include "Application.hpp"
@@ -41,22 +41,22 @@ void Application::main_loop()
 
     auto prev = clock::now();
     auto curr = prev;
-    double lag = 0.;
+    double interval = 0.;
 
     m_window.setActive(false);
     std::thread render_thread(&Application::render_loop, this);
     
-    // i don't know why
+    // SFML(or X11) bug... plz fix
     std::this_thread::sleep_for(std::chrono::duration<double>(.1));
 
     while(m_window.isOpen())
     {
         curr = clock::now();
-        lag += std::chrono::duration<double>(curr - prev).count();
+        interval = std::chrono::duration<double>(curr - prev).count();
         prev = curr;
 
         process_events();
-        update(lag);
+        update(interval);
     }
 
     render_thread.join();
@@ -76,24 +76,23 @@ void Application::render_loop()
 
 void Application::process_events()
 {
-    sf::Event e;
-    while(m_window.pollEvent(e))
+    sf::Event event;
+    while(m_window.pollEvent(event))
     {
-        m_scene.handle_event(e);
-
-        if(e.type == sf::Event::Closed)
+        if(event.type == sf::Event::Closed)
             m_window.close();
+        
+        m_scene.handle_event(event);
     }
 }
 
 
-void Application::update(double& lag)
+void Application::update(double dt)
 {
-    while(lag >= m_scene.tick())
-    {
-        m_scene.update();
-        lag -= m_scene.tick();
-    }
+    m_scene.update(dt);
+
+    if(m_scene.should_close())
+        m_window.close();
 }
 
 

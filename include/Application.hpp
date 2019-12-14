@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Jinyoung Maeng
+ * Copyright 2019 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -17,7 +17,7 @@
  * along with Venusblast.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * Author:
- *     Jinyoung Maeng <adenosiez@gmail.com>
+ *     Adenosie <adenosiez@gmail.com>
  */
 
 #ifndef VBLAST_APPLICATION_HPP
@@ -26,7 +26,7 @@
 #include <chrono>
 #include <thread>
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "GameScene.hpp"
+#include "SceneManager.hpp"
 
 namespace vblast
 {
@@ -45,11 +45,11 @@ private:
     void render_loop();
 
     void process_events();
-    void update(double& lag);
+    void update(double dt);
     void draw();
 
     sf::RenderWindow m_window;
-    GameScene m_scene;    
+    SceneManager m_scene;    
 };
 
 

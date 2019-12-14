@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Jinyoung Maeng
+ * Copyright 2019 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -17,7 +17,7 @@
  * along with Venusblast.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * Author:
- *     Jinyoung Maeng <adenosiez@gmail.com>
+ *     Adenosie <adenosiez@gmail.com>
  */
 
 #ifndef VBLAST_GAMESCENE_HPP
@@ -41,10 +41,6 @@ public:
 protected:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const;
-
-private:
-
-
 };
 
 

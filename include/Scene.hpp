@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Jinyoung Maeng
+ * Copyright 2019 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -17,7 +17,7 @@
  * along with Venusblast.  If not, see <https://www.gnu.org/licenses/>.
  * 
  * Author:
- *     Jinyoung Maeng <adenosiez@gmail.com>
+ *     Adenosie <adenosiez@gmail.com>
  */
 
 #ifndef VBLAST_SCENE_HPP
@@ -34,45 +34,25 @@ class Scene : public sf::Drawable
 {
 public:
 
-    enum State
-    {
-        Normal = 0,
-        Navigate = 1 << 31
-    };
-
-    enum Type
-    {
-        Empty = 0,
-        Title,
-        Gameplay
-    };
+    bool should_close() const;
+    Scene* get_target() const;
 
     virtual void handle_event(const sf::Event& event) = 0;
-    virtual void update() = 0;
-
-    inline double tick() const
-    {
-        return m_tick;
-    }
-
-    inline void notify(int state)
-    {
-        m_state = state;
-    }
-
-    inline int get_state() const
-    {
-        return m_state;
-    }
+    virtual void update(double dt) = 0;
 
 protected:
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const = 0;
 
+    void post_closed(bool flag);
+    void set_target(Scene* target);
+
 private:
 
-    const double m_tick = 1. / 120.;
-    int m_state = Normal;
+    bool m_close = false;
+
+    // pointer to the next scene
+    Scene* m_target = nullptr;
 };
 
 
