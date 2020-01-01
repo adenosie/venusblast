@@ -20,14 +20,29 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include "Application.hpp"
+#include "TitleScene.hpp"
 
-using namespace vblast;
 
-int main()
+namespace vblast
 {
-    Application app = Application();
-    app.main_loop();
 
-    return 0;
+
+void TitleScene::handle_event(const sf::Event& event)
+{
+
+}
+
+
+Scene* TitleScene::update(double dt)
+{
+    return this;
+}
+
+
+void TitleScene::render_into(sf::RenderTarget& target, const sf::RenderStates& states) const
+{
+    target.clear(sf::Color::Green);
+}
+
+
 }

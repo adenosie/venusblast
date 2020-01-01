@@ -20,36 +20,48 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#ifndef VBLAST_APPLICATION
-#define VBLAST_APPLICATION
+#ifndef VBLAST_COMPOSITOR
+#define VBLAST_COMPOSITOR
 
-#include <chrono>
-#include <thread>
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "Compositor.hpp"
+#include <memory>
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Audio/SoundBuffer.hpp"
+#include "ResourceManager.hpp"
+#include "Scene.hpp"
+
 
 namespace vblast
 {
 
 
-class Application
+class Compositor
 {
 public:
 
-    Application();
+    Compositor();
 
-    void main_loop();
+    void handle_event(const sf::Event& event);
+    void update(double dt);
+
+    void render_into(
+            sf::RenderTarget& target,
+            const sf::RenderStates& states = sf::RenderStates::Default
+            ) const;
+
+    bool should_close() const;
 
 private:
 
-    void render_loop();
+    void switch_scene(std::unique_ptr<Scene>&& scene);
 
-    void process_events();
-    void update(double dt);
-    void render();
+    void notify_close(bool flag = true);
 
-    sf::RenderWindow m_window;
-    Compositor m_comp;
+    bool m_close = false;
+
+    ResourceManager<sf::Texture> m_textures;
+    ResourceManager<sf::SoundBuffer> m_audios;
+
+    std::unique_ptr<Scene> m_scene;
 };
 
 

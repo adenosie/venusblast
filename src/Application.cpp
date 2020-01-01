@@ -36,10 +36,7 @@ Application::Application()
 
 void Application::main_loop()
 {
-    // for short length
-    using clock = std::chrono::steady_clock;
-
-    auto prev = clock::now();
+    auto prev = std::chrono::steady_clock::now();
     auto curr = prev;
     double interval = 0.;
 
@@ -51,7 +48,7 @@ void Application::main_loop()
 
     while(m_window.isOpen())
     {
-        curr = clock::now();
+        curr = std::chrono::steady_clock::now();
         interval = std::chrono::duration<double>(curr - prev).count();
         prev = curr;
 
@@ -69,7 +66,7 @@ void Application::render_loop()
 
     while(m_window.isOpen())
     {
-        draw();
+        render();
     }
 }
 
@@ -82,24 +79,24 @@ void Application::process_events()
         if(event.type == sf::Event::Closed)
             m_window.close();
         
-        m_scene.handle_event(event);
+        m_comp.handle_event(event);
     }
 }
 
 
 void Application::update(double dt)
 {
-    m_scene.update(dt);
+    m_comp.update(dt);
 
-    if(m_scene.should_close())
+    if(m_comp.should_close())
         m_window.close();
 }
 
 
-void Application::draw()
+void Application::render()
 {
     m_window.clear();
-    m_window.draw(m_scene);
+    m_comp.render_into(m_window);
     m_window.display();
 }
 

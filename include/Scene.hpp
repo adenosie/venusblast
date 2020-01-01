@@ -20,39 +20,26 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#ifndef VBLAST_SCENE_HPP
-#define VBLAST_SCENE_HPP
+#ifndef VBLAST_SCENE
+#define VBLAST_SCENE
 
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Drawable.hpp>
+#include "SFML/Window/Event.hpp"
+#include "SFML/Graphics/RenderTarget.hpp"
+#include "SFML/Graphics/RenderStates.hpp"
+
 
 namespace vblast
 {
 
 
-class Scene : public sf::Drawable
+class Scene
 {
 public:
 
-    bool should_close() const;
-    Scene* get_target() const;
-
     virtual void handle_event(const sf::Event& event) = 0;
-    virtual void update(double dt) = 0;
+    virtual Scene* update(double dt) = 0;
 
-protected:
-
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates state) const = 0;
-
-    void post_closed(bool flag);
-    void set_target(Scene* target);
-
-private:
-
-    bool m_close = false;
-
-    // pointer to the next scene
-    Scene* m_target = nullptr;
+    virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const = 0;
 };
 
 

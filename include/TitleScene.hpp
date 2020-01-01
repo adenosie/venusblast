@@ -20,14 +20,28 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include "Application.hpp"
+#ifndef VBLAST_TITLESCENE
+#define VBLAST_TITLESCENE
 
-using namespace vblast;
+#include "Scene.hpp"
 
-int main()
+
+namespace vblast
 {
-    Application app = Application();
-    app.main_loop();
 
-    return 0;
+
+class TitleScene : public Scene
+{
+public:
+
+    virtual void handle_event(const sf::Event& event);
+    virtual Scene* update(double dt);
+
+    virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const;
+
+};
+
+
 }
+
+#endif
