@@ -36,10 +36,32 @@ class Scene
 {
 public:
 
+    // every function should work well regardless
+    // whether notice_close() or notice_change() is called
     virtual void handle_event(const sf::Event& event) = 0;
-    virtual Scene* update(double dt) = 0;
+    virtual void update(double dt) = 0;
 
-    virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const = 0;
+    virtual void render_into(
+            sf::RenderTarget& target,
+            const sf::RenderStates& states
+            ) const = 0;
+
+    bool should_close() const;
+    bool should_change() const;
+
+    // the pointer will be moved after the function is called
+    std::unique_ptr<Scene>&& get_target();
+
+protected:
+
+    void notice_close(bool flag = true);
+    void notice_change(std::unique_ptr<Scene>&& target);
+
+private:
+
+    bool m_close = false;
+    std::unique_ptr<Scene> m_target = nullptr;
+
 };
 
 

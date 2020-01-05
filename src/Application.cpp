@@ -40,12 +40,6 @@ void Application::main_loop()
     auto curr = prev;
     double interval = 0.;
 
-    m_window.setActive(false);
-    std::thread render_thread(&Application::render_loop, this);
-    
-    // SFML(or X11) bug... plz fix
-    std::this_thread::sleep_for(std::chrono::duration<double>(.1));
-
     while(m_window.isOpen())
     {
         curr = std::chrono::steady_clock::now();
@@ -54,18 +48,6 @@ void Application::main_loop()
 
         process_events();
         update(interval);
-    }
-
-    render_thread.join();
-}
-
-
-void Application::render_loop()
-{
-    m_window.setActive(true);
-
-    while(m_window.isOpen())
-    {
         render();
     }
 }

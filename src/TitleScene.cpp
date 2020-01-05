@@ -29,13 +29,14 @@ namespace vblast
 
 void TitleScene::handle_event(const sf::Event& event)
 {
-
+    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+        notice_close();
 }
 
 
-Scene* TitleScene::update(double dt)
+void TitleScene::update(double dt)
 {
-    return this;
+    
 }
 
 

@@ -42,20 +42,10 @@ void Compositor::handle_event(const sf::Event& event)
 
 void Compositor::update(double dt)
 {
-    Scene* target = m_scene->update(dt);
+    m_scene->update(dt);
 
-    if(target == m_scene.get())
-    {
-        return;
-    }
-    else if(target == nullptr)
-    {
-        notify_close();
-    }
-    else
-    {
-        m_scene.reset(target);
-    }
+    if(m_scene->should_change())
+        m_scene = std::move(m_scene->get_target());
 }
 
 
@@ -70,19 +60,7 @@ void Compositor::render_into(
 
 bool Compositor::should_close() const
 {
-    return m_close;
-}
-
-
-void Compositor::switch_scene(std::unique_ptr<Scene>&& scene)
-{
-    m_scene = std::move(scene);
-}
-
-
-void Compositor::notify_close(bool flag)
-{
-    m_close = flag;
+    return m_scene->should_close();
 }
 
 

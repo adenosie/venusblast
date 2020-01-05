@@ -24,7 +24,6 @@
 #define VBLAST_APPLICATION
 
 #include <chrono>
-#include <thread>
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "Compositor.hpp"
 
@@ -41,8 +40,6 @@ public:
     void main_loop();
 
 private:
-
-    void render_loop();
 
     void process_events();
     void update(double dt);

@@ -35,7 +35,7 @@ class TitleScene : public Scene
 public:
 
     virtual void handle_event(const sf::Event& event);
-    virtual Scene* update(double dt);
+    virtual void update(double dt);
 
     virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const;
 

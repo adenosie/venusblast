@@ -52,12 +52,6 @@ public:
 
 private:
 
-    void switch_scene(std::unique_ptr<Scene>&& scene);
-
-    void notify_close(bool flag = true);
-
-    bool m_close = false;
-
     ResourceManager<sf::Texture> m_textures;
     ResourceManager<sf::SoundBuffer> m_audios;
 

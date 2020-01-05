@@ -38,8 +38,10 @@ private:
 
     static std::shared_ptr<R>&& shared_from_path(const std::filesystem::path& filename)
     {
-        // what if R == std::filesystem::path?
-        if constexpr(std::is_constructible_v<R, const std::filesystem::path&>)
+        if constexpr(
+                !std::is_same_v<R, std::filesystem::path> &&
+                std::is_constructible_v<R, const std::filesystem::path&>
+                )
         {
             return std::make_shared<R>(filename);
         }
@@ -91,7 +93,7 @@ public:
     }
 
 
-    std::shared_ptr<R> get_ptr(const std::filesystem::path& filename) noexcept
+    std::shared_ptr<R> at(const std::filesystem::path& filename) const
     {
         if(auto it = m_resources.find(filename); it != m_resources.end())
             return *it;
@@ -99,16 +101,17 @@ public:
             return nullptr;
     }
 
-
-    const R& operator[](const std::filesystem::path& filename) const
+    std::shared_ptr<R> operator[](const std::filesystem::path& filename)
     {
-        return *m_resources.at(filename);
-    }
-
-
-    R& operator[](const std::filesystem::path& filename)
-    {
-        return *m_resources.at(filename);
+        if(auto it = m_resources.find(filename); it != m_resources.end())
+        {
+            return *it;
+        }
+        else
+        {
+            it = m_resources.insert(std::make_pair(filename, shared_from_path(filename))).first;
+            return *it;
+        }
     }
 
 private:
