@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -22,11 +22,9 @@
 
 #include "Application.hpp"
 
-using namespace vblast;
-
 int main()
 {
-    Application app = Application();
+    vblast::Application app = vblast::Application();
     app.main_loop();
 
     return 0;

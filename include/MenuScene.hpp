@@ -20,8 +20,8 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#ifndef VBLAST_TITLESCENE
-#define VBLAST_TITLESCENE
+#ifndef VBLAST_MENUSCENE
+#define VBLAST_MENUSCENE
 
 #include "Scene.hpp"
 
@@ -30,7 +30,7 @@ namespace vblast
 {
 
 
-class TitleScene : public Scene
+class MenuScene : public Scene
 {
 public:
 

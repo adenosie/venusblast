@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -38,16 +38,16 @@ void Application::main_loop()
 {
     auto prev = std::chrono::steady_clock::now();
     auto curr = prev;
-    double interval = 0.;
+    double dt = 0.; // delta time
 
     while(m_window.isOpen())
     {
         curr = std::chrono::steady_clock::now();
-        interval = std::chrono::duration<double>(curr - prev).count();
+        dt = std::chrono::duration<double>(curr - prev).count();
         prev = curr;
 
         process_events();
-        update(interval);
+        update(dt);
         render();
     }
 }

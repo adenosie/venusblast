@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -56,6 +56,12 @@ protected:
 
     void notice_close(bool flag = true);
     void notice_change(std::unique_ptr<Scene>&& target);
+
+    template <typename S, typename... A>
+    inline void notice_change(A... args)
+    {
+        notice_change(std::make_unique<S>(args...));
+    }
 
 private:
 

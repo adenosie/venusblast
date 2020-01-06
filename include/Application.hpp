@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *

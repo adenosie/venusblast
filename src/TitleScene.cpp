@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -21,6 +21,7 @@
  */
 
 #include "TitleScene.hpp"
+#include "MenuScene.hpp"
 
 
 namespace vblast
@@ -29,8 +30,13 @@ namespace vblast
 
 void TitleScene::handle_event(const sf::Event& event)
 {
-    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-        notice_close();
+    if(event.type == sf::Event::KeyPressed)
+    {
+        if(event.key.code == sf::Keyboard::Escape)
+            notice_close();
+        else
+            notice_change<MenuScene>();
+    }
 }
 
 

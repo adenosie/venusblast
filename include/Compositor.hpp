@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Adenosie
+ * Copyright 2019-2020 Adenosie
  *
  * This file is part of Venusblast.
  *
@@ -51,9 +51,6 @@ public:
     bool should_close() const;
 
 private:
-
-    ResourceManager<sf::Texture> m_textures;
-    ResourceManager<sf::SoundBuffer> m_audios;
 
     std::unique_ptr<Scene> m_scene;
 };
