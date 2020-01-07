@@ -28,6 +28,15 @@ namespace vblast
 {
 
 
+TitleScene::TitleScene()
+{
+    auto& textures = ResourceManager<sf::Texture>::instance();
+
+    m_tex_bg = textures["resources/title_bg.png"];
+    m_background.setTexture(*m_tex_bg);
+}
+
+
 void TitleScene::handle_event(const sf::Event& event)
 {
     if(event.type == sf::Event::KeyPressed)
@@ -48,7 +57,7 @@ void TitleScene::update(double dt)
 
 void TitleScene::render_into(sf::RenderTarget& target, const sf::RenderStates& states) const
 {
-    target.clear(sf::Color::Green);
+    target.draw(m_background);
 }
 
 

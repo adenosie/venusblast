@@ -53,7 +53,7 @@ public:
 private:
 
     ResourceManager() = default;
-    static std::shared_ptr<R>&& shared_from_path(const std::filesystem::path& filename);
+    static std::shared_ptr<R> shared_from_path(const std::filesystem::path& filename);
 
     std::map<std::filesystem::path, std::shared_ptr<R>> m_resources;
 

@@ -23,7 +23,11 @@
 #ifndef VBLAST_TITLESCENE
 #define VBLAST_TITLESCENE
 
+#include <memory>
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/Sprite.hpp"
 #include "Scene.hpp"
+#include "ResourceManager.hpp"
 
 
 namespace vblast
@@ -34,10 +38,18 @@ class TitleScene : public Scene
 {
 public:
 
+    TitleScene();
+
     virtual void handle_event(const sf::Event& event);
     virtual void update(double dt);
 
     virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const;
+
+private:
+
+    std::shared_ptr<sf::Texture> m_tex_bg;
+
+    sf::Sprite m_background;
 
 };
 

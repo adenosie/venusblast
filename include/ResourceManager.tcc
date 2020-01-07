@@ -31,7 +31,7 @@ template <typename R>
 ResourceManager<R>& ResourceManager<R>::instance()
 {
     static ResourceManager<R>* ptr = new ResourceManager<R>();
-    return ptr;
+    return *ptr;
 }
 
 
@@ -58,7 +58,7 @@ void ResourceManager<R>::refresh(const std::filesystem::path& filename)
 {
     // m_resources.contains(filename)
     if(auto it = m_resources.find(filename); it != m_resources.end())
-        *it = std::move(shared_from_path(filename));
+        it->second = std::move(shared_from_path(filename));
 }
 
 
@@ -80,7 +80,7 @@ template <typename R>
 std::shared_ptr<R> ResourceManager<R>::at(const std::filesystem::path& filename) const
 {
     if(auto it = m_resources.find(filename); it != m_resources.end())
-        return *it;
+        return it->second;
     else
         return nullptr;
 }
@@ -91,19 +91,19 @@ std::shared_ptr<R> ResourceManager<R>::operator[](const std::filesystem::path& f
 {
     if(auto it = m_resources.find(filename); it != m_resources.end())
     {
-        return *it;
+        return it->second;
     }
     else
     {
-        return *(m_resources.insert(
+        return m_resources.insert(
                     std::make_pair(filename, shared_from_path(filename))
-                    ).first);
+                    ).first->second;
     }
 }
 
 
 template <typename R>
-std::shared_ptr<R>&& ResourceManager<R>::shared_from_path(const std::filesystem::path& filename)
+std::shared_ptr<R> ResourceManager<R>::shared_from_path(const std::filesystem::path& filename)
 {
     if constexpr(
             !std::is_same_v<R, std::filesystem::path> &&
@@ -116,7 +116,7 @@ std::shared_ptr<R>&& ResourceManager<R>::shared_from_path(const std::filesystem:
     {
         // there will be an error right here if R isn't a resource type
         R* resource = new R();
-        resource->load_from_file(filename.c_str());
+        resource->loadFromFile(filename.c_str());
 
         return std::shared_ptr<R>(resource);
     }
