@@ -28,7 +28,7 @@ namespace vblast
 
 
 Application::Application()
-    : m_window(sf::VideoMode(1280, 720), L"Venusblast")
+    : m_window(sf::VideoMode::getFullscreenModes()[0], L"Venusblast", sf::Style::Fullscreen)
 {
     m_window.setVerticalSyncEnabled(true);
 }

@@ -38,19 +38,10 @@ class TitleScene : public Scene
 {
 public:
 
-    TitleScene();
-
     virtual void handle_event(const sf::Event& event);
     virtual void update(double dt);
 
     virtual void render_into(sf::RenderTarget& target, const sf::RenderStates& states) const;
-
-private:
-
-    std::shared_ptr<sf::Texture> m_tex_bg;
-
-    sf::Sprite m_background;
-
 };
 
 
