@@ -20,13 +20,39 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include <iostream>
-#include "Application.hpp"
+#ifndef VBLAST_APPLICATION
+#define VBLAST_APPLICATION
 
-int main(int argc, char* argv[])
+#include <chrono>
+#include <memory>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include "Scene.hpp"
+
+namespace vblast
 {
-    vblast::Application app = vblast::Application();
-    app.main_loop();
 
-    return 0;
+
+class Application
+{
+public:
+
+    Application();
+    Application(std::unique_ptr<Scene>&& init_scene);
+
+    void main_loop();
+
+private:
+
+    void process_events();
+    void update(double dt);
+    void render();
+
+    sf::RenderWindow m_window;
+
+    std::unique_ptr<Scene> m_scene;
+};
+
+
 }
+
+#endif

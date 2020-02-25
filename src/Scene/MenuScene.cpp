@@ -20,8 +20,10 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include "MenuScene.hpp"
-#include "TitleScene.hpp"
+#include "Scene/MenuScene.hpp"
+#include "Scene/TitleScene.hpp"
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 
 namespace vblast
@@ -41,7 +43,7 @@ void MenuScene::update(double dt)
 }
 
 
-void MenuScene::render_into(sf::RenderTarget& target, const sf::RenderStates& states) const
+void MenuScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.clear(sf::Color::Cyan);
 }

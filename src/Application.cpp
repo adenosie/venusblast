@@ -21,6 +21,7 @@
  */
 
 #include "Application.hpp"
+#include "Scene/TitleScene.hpp"
 
 
 namespace vblast
@@ -28,9 +29,19 @@ namespace vblast
 
 
 Application::Application()
-    : m_window(sf::VideoMode::getFullscreenModes()[0], L"Venusblast", sf::Style::Fullscreen)
+    : Application(std::make_unique<TitleScene>())
 {
-    m_window.setVerticalSyncEnabled(true);
+}
+
+
+Application::Application(std::unique_ptr<Scene>&& init_scene)
+    : m_window(
+            sf::VideoMode::getFullscreenModes()[0],
+            L"Venusblast",
+            sf::Style::Fullscreen
+            ),
+      m_scene(std::move(init_scene))
+{
 }
 
 
@@ -61,16 +72,18 @@ void Application::process_events()
         if(event.type == sf::Event::Closed)
             m_window.close();
         
-        m_comp.handle_event(event);
+        m_scene->handle_event(event);
     }
 }
 
 
 void Application::update(double dt)
 {
-    m_comp.update(dt);
+    m_scene->update(dt);
 
-    if(m_comp.should_close())
+    if(m_scene->should_change())
+        m_scene = std::move(m_scene->get_target());
+    if(m_scene->should_close())
         m_window.close();
 }
 
@@ -78,7 +91,7 @@ void Application::update(double dt)
 void Application::render()
 {
     m_window.clear();
-    m_comp.render_into(m_window);
+    m_window.draw(*m_scene);
     m_window.display();
 }
 

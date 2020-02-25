@@ -20,36 +20,30 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include "TitleScene.hpp"
-#include "MenuScene.hpp"
+#ifndef VBLAST_TITLESCENE
+#define VBLAST_TITLESCENE
+
+#include <memory>
+#include "Scene.hpp"
 
 
 namespace vblast
 {
 
 
-void TitleScene::handle_event(const sf::Event& event)
+class TitleScene : public Scene
 {
-    if(event.type == sf::Event::KeyPressed)
-    {
-        if(event.key.code == sf::Keyboard::Escape)
-            notice_close();
-        else
-            notice_change<MenuScene>();
-    }
-}
+public:
 
+    virtual void handle_event(const sf::Event& event);
+    virtual void update(double dt);
 
-void TitleScene::update(double dt)
-{
-    
-}
+protected:
 
-
-void TitleScene::render_into(sf::RenderTarget& target, const sf::RenderStates& states) const
-{
-    target.clear(sf::Color::Green);
-}
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+};
 
 
 }
+
+#endif

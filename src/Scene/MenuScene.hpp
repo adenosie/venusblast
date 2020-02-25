@@ -20,13 +20,30 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include <iostream>
-#include "Application.hpp"
+#ifndef VBLAST_MENUSCENE
+#define VBLAST_MENUSCENE
 
-int main(int argc, char* argv[])
+#include "Scene.hpp"
+
+
+namespace vblast
 {
-    vblast::Application app = vblast::Application();
-    app.main_loop();
 
-    return 0;
+
+class MenuScene : public Scene
+{
+public:
+
+    virtual void handle_event(const sf::Event& event);
+    virtual void update(double dt);
+
+protected:
+    
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+};
+
+
 }
+
+#endif

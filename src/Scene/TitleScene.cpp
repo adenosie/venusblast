@@ -20,47 +20,37 @@
  *     Adenosie <adenosiez@gmail.com>
  */
 
-#include "Compositor.hpp"
-#include "TitleScene.hpp"
+#include "Scene/TitleScene.hpp"
+#include "Scene/MenuScene.hpp"
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 
 namespace vblast
 {
 
 
-Compositor::Compositor()
-    : m_scene(std::make_unique<TitleScene>())
+void TitleScene::handle_event(const sf::Event& event)
 {
+    if(event.type == sf::Event::KeyPressed)
+    {
+        if(event.key.code == sf::Keyboard::Escape)
+            notice_close();
+        else
+            notice_change<MenuScene>();
+    }
 }
 
 
-void Compositor::handle_event(const sf::Event& event)
+void TitleScene::update(double dt)
 {
-    m_scene->handle_event(event);
+    
 }
 
 
-void Compositor::update(double dt)
+void TitleScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-    m_scene->update(dt);
-
-    if(m_scene->should_change())
-        m_scene = std::move(m_scene->get_target());
-}
-
-
-void Compositor::render_into(
-        sf::RenderTarget& target,
-        const sf::RenderStates& states
-        ) const
-{
-    m_scene->render_into(target, states);
-}
-
-
-bool Compositor::should_close() const
-{
-    return m_scene->should_close();
+    target.clear(sf::Color::Green);
 }
 
 
